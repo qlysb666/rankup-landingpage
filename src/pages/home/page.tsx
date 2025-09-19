@@ -8,23 +8,42 @@ export default function Home() {
   const [consent, setConsent] = useState(false);
   const [expandedFAQ, setExpandedFAQ] = useState<number | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    const form = e.target as HTMLFormElement;
+    const formData = new FormData(form);
+    
+    const payload = {
+      email: formData.get('email'),
+      rank: formData.get('rank'),
+      agent: formData.get('agent'),
+      consent: formData.get('consent') === 'yes',
+      source: 'hero_form' // 可换成UTM来源
+    };
 
-    if (!email) {
-      alert('Please enter a valid email address.');
-      return;
+    try {
+      const response = await fetch('/api/join', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      
+      const data = await response.json();
+      
+      if (data.ok) {
+        alert('Joined! 🎉');
+        // 重置表单
+        setEmail('');
+        setCurrentRank('Gold');
+        setMainAgent('');
+        setConsent(false);
+      } else {
+        alert(`Failed: ${data.error || 'Try again'}`);
+      }
+    } catch (error) {
+      alert('Network error. Please try again.');
     }
-    if (!consent) {
-      alert('You must agree to the terms to continue.');
-      return;
-    }
-
-    alert('感谢加入等候名单！我们会尽快联系你。');
-    setEmail('');
-    setCurrentRank('Gold');
-    setMainAgent('');
-    setConsent(false);
   };
 
   const toggleFAQ = (index: number) => {
@@ -346,12 +365,14 @@ export default function Home() {
             <p className="text-base text-gray-400">Be among the first to get AI-powered VALORANT coaching</p>
           </div>
 
-          <form onSubmit={handleSubmit} className="bg-gray-900/50 backdrop-blur-sm border border-gray-800 p-8 rounded-2xl space-y-6">
+          <form id="waitlist" onSubmit={handleSubmit} className="bg-gray-900/50 backdrop-blur-sm border border-gray-800 p-8 rounded-2xl space-y-6">
             <div>
               <label className="block text-base mb-2 font-medium">Email Address *</label>
               <input
+                name="email"
                 type="email"
                 required
+                placeholder="Email Address *"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-xl text-white text-base focus:border-red-500 focus:outline-none"
@@ -361,24 +382,26 @@ export default function Home() {
             <div>
               <label className="block text-base mb-2 font-medium">Current Rank</label>
               <select
+                name="rank"
                 value={currentRank}
                 onChange={(e) => setCurrentRank(e.target.value)}
                 className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-xl text-white text-base focus:border-red-500 focus:outline-none pr-8"
               >
-                <option>Iron</option>
-                <option>Bronze</option>
-                <option>Gold</option>
-                <option>Platinum</option>
-                <option>Diamond</option>
-                <option>Ascendant</option>
-                <option>Immortal</option>
-                <option>Radiant</option>
+                <option value="Iron">Iron</option>
+                <option value="Bronze">Bronze</option>
+                <option value="Gold">Gold</option>
+                <option value="Platinum">Platinum</option>
+                <option value="Diamond">Diamond</option>
+                <option value="Ascendant">Ascendant</option>
+                <option value="Immortal">Immortal</option>
+                <option value="Radiant">Radiant</option>
               </select>
             </div>
 
             <div>
               <label className="block text-base mb-2 font-medium">Main Agent (Optional)</label>
               <input
+                name="agent"
                 placeholder="e.g., Jett, Sage, Sova"
                 value={mainAgent}
                 onChange={(e) => setMainAgent(e.target.value)}
@@ -388,12 +411,14 @@ export default function Home() {
 
             <div className="flex items-start space-x-3">
               <input
+                name="consent"
                 type="checkbox"
                 id="consent"
                 required
+                value="yes"
                 checked={consent}
                 onChange={(e) => setConsent(e.target.checked)}
-                className="mt-1 w-4 h-4 text-red-500 bg-gray-900 border-gray-700 rounded focus:ring-red-500"
+                className="mt-1 w-4 h-4 text-red-500 bg-gray-900 border border-gray-700 rounded focus:ring-red-500"
               />
               <label htmlFor="consent" className="text-gray-400 text-base leading-relaxed">
                 I agree to receive updates about RankUp and understand that my email will be used solely for waitlist communications.
