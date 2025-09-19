@@ -453,7 +453,7 @@ export default function Home() {
 
       {/* FAQ Section */}
       <section id="faq-section" className="py-20 bg-black">
-        <div className="max-3xl mx-auto px-8">
+        <div className="max-w-3xl mx-auto px-8">
           <h2 className="text-3xl font-bold text-center mb-12">Frequently Asked Questions</h2>
           <div className="space-y-4">
             {[
@@ -499,10 +499,10 @@ export default function Home() {
               <div className="flex items-center gap-4">
                 <div className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-400">RankUp</div>
                 <div className="flex items-center gap-3">
-                  <a href="https://reddit.com/r/VALORANT" target="_blank" rel="noopener noreferrer" className="w-8 h-8 flex items-center justify-center bg-gradient-to-br from-gray-800 to-red-900/30 hover:from-red-600 hover:to-red-700 rounded-full transition-all cursor-pointer border border-red-500/30">
+                  <a href="https://www.reddit.com/r/ValorantRankup/" target="_blank" rel="noopener noreferrer" className="w-8 h-8 flex items-center justify-center bg-gradient-to-br from-gray-800 to-red-900/30 hover:from-red-600 hover:to-red-700 rounded-full transition-all cursor-pointer border border-red-500/30">
                     <i className="ri-reddit-line text-red-400 text-lg"></i>
                   </a>
-                  <a href="https://discord.gg/valorant" target="_blank" rel="noopener noreferrer" className="w-8 h-8 flex items-center justify-center bg-gradient-to-br from-gray-800 to-blue-900/30 hover:from-blue-600 hover:to-blue-700 rounded-full transition-all cursor-pointer border border-blue-500/30">
+                  <a href="https://discord.com/invite/MmxAnSXS" target="_blank" rel="noopener noreferrer" className="w-8 h-8 flex items-center justify-center bg-gradient-to-br from-gray-800 to-blue-900/30 hover:from-blue-600 hover:to-blue-700 rounded-full transition-all cursor-pointer border border-blue-500/30">
                     <i className="ri-discord-line text-blue-400 text-lg"></i>
                   </a>
                 </div>
