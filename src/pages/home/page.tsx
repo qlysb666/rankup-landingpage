@@ -18,9 +18,11 @@ export default function Home() {
       email: formData.get('email'),
       rank: formData.get('rank'),
       agent: formData.get('agent'),
-      consent: formData.get('consent') === 'yes',
-      source: 'hero_form' // 可换成UTM来源
+      consent: !!formData.get('consent'),
+      source: 'hero_form'
     };
+
+    console.log('Submitting payload:', payload); // 调试日志
 
     try {
       const response = await fetch('/api/join', {
@@ -29,7 +31,9 @@ export default function Home() {
         body: JSON.stringify(payload)
       });
       
+      console.log('Response status:', response.status); // 调试日志
       const data = await response.json();
+      console.log('Response data:', data); // 调试日志
       
       if (data.ok) {
         alert('Joined! 🎉');
@@ -40,8 +44,10 @@ export default function Home() {
         setConsent(false);
       } else {
         alert(`Failed: ${data.error || 'Try again'}`);
+        console.error('API Error:', data.error);
       }
     } catch (error) {
+      console.error('Network error:', error);
       alert('Network error. Please try again.');
     }
   };
