@@ -14,8 +14,20 @@ export default function Home() {
     const form = e.target as HTMLFormElement;
     const formData = new FormData(form);
     
+    // 自定义验证
+    const emailValue = formData.get('email') as string;
+    if (!emailValue || !emailValue.includes('@')) {
+      alert('Please enter a valid email address.');
+      return;
+    }
+    
+    if (!consent) {
+      alert('Please agree to the terms to continue.');
+      return;
+    }
+    
     const payload = {
-      email: formData.get('email'),
+      email: emailValue,
       rank: formData.get('rank'),
       agent: formData.get('agent'),
       consent: !!formData.get('consent'),
@@ -36,19 +48,19 @@ export default function Home() {
       console.log('Response data:', data); // 调试日志
       
       if (data.ok) {
-        alert('Joined! 🎉');
+        alert('Successfully joined the waitlist! 🎉 We\'ll be in touch soon.');
         // 重置表单
         setEmail('');
         setCurrentRank('Gold');
         setMainAgent('');
         setConsent(false);
       } else {
-        alert(`Failed: ${data.error || 'Try again'}`);
+        alert(`Failed to join: ${data.error || 'Please try again'}`);
         console.error('API Error:', data.error);
       }
     } catch (error) {
       console.error('Network error:', error);
-      alert('Network error. Please try again.');
+      alert('Network error. Please check your connection and try again.');
     }
   };
 
@@ -377,7 +389,6 @@ export default function Home() {
               <input
                 name="email"
                 type="email"
-                required
                 placeholder="Email Address *"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -420,7 +431,6 @@ export default function Home() {
                 name="consent"
                 type="checkbox"
                 id="consent"
-                required
                 value="yes"
                 checked={consent}
                 onChange={(e) => setConsent(e.target.checked)}
@@ -489,10 +499,10 @@ export default function Home() {
               <div className="flex items-center gap-4">
                 <div className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-400">RankUp</div>
                 <div className="flex items-center gap-3">
-                  <a href="#" className="w-8 h-8 flex items-center justify-center bg-gradient-to-br from-gray-800 to-red-900/30 hover:from-red-600 hover:to-red-700 rounded-full transition-all cursor-pointer border border-red-500/30">
+                  <a href="https://reddit.com/r/VALORANT" target="_blank" rel="noopener noreferrer" className="w-8 h-8 flex items-center justify-center bg-gradient-to-br from-gray-800 to-red-900/30 hover:from-red-600 hover:to-red-700 rounded-full transition-all cursor-pointer border border-red-500/30">
                     <i className="ri-reddit-line text-red-400 text-lg"></i>
                   </a>
-                  <a href="#" className="w-8 h-8 flex items-center justify-center bg-gradient-to-br from-gray-800 to-blue-900/30 hover:from-blue-600 hover:to-blue-700 rounded-full transition-all cursor-pointer border border-blue-500/30">
+                  <a href="https://discord.gg/valorant" target="_blank" rel="noopener noreferrer" className="w-8 h-8 flex items-center justify-center bg-gradient-to-br from-gray-800 to-blue-900/30 hover:from-blue-600 hover:to-blue-700 rounded-full transition-all cursor-pointer border border-blue-500/30">
                     <i className="ri-discord-line text-blue-400 text-lg"></i>
                   </a>
                 </div>
