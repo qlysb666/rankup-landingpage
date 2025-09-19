@@ -174,13 +174,55 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="mt-12">
-            <div className="bg-black/60 backdrop-blur-sm border-2 border-red-500/30 p-6 rounded-2xl shadow-2xl shadow-red-500/20">
-              <img
-                src="https://readdy.ai/api/search-image?query=professional%20VALORANT%20coaching%20dashboard%20interface%20with%20esports%20styling%2C%20performance%20analytics%20with%20neon%20accent%20colors%2C%20tactical%20gaming%20statistics%2C%20dark%20futuristic%20UI%20design%20with%20red%20and%20blue%20highlights%2C%20competitive%20gaming%20analysis%20tools&width=1200&height=800&seq=dashboardesports001&orientation=landscape"
-                alt="Elite Gaming Dashboard"
-                className="rounded-xl w-full object-cover"
-              />
+          <div className="mt-16">
+            <div className="bg-gradient-to-r from-gray-900/80 to-red-900/20 backdrop-blur-sm border border-red-500/30 p-8 rounded-2xl shadow-2xl shadow-red-500/20 max-w-5xl mx-auto">
+              <div className="text-center mb-8">
+                <div className="inline-flex items-center justify-center w-12 h-12 bg-red-500 rounded-xl mb-4">
+                  <i className="ri-chat-3-line text-white text-xl"></i>
+                </div>
+                <h3 className="text-2xl font-bold text-white mb-2">Here's your pathway to ranking up!</h3>
+              </div>
+              
+              <div className="grid md:grid-cols-3 gap-6">
+                {/* Card 1 */}
+                <div className="bg-gray-900/60 backdrop-blur-sm border border-gray-700 p-6 rounded-2xl hover:border-red-500/50 transition-all group">
+                  <div className="text-center">
+                    <div className="w-16 h-16 flex items-center justify-center bg-gradient-to-br from-gray-700 to-gray-800 rounded-full mx-auto mb-6 border-2 border-gray-600 group-hover:border-red-500/50 transition-all">
+                      <i className="ri-question-line text-white text-2xl"></i>
+                    </div>
+                    <h4 className="text-xl font-bold text-white mb-6">What's your true rank?</h4>
+                    <button className="w-full bg-white text-black py-3 px-6 rounded-xl font-semibold hover:bg-gray-100 transition-colors">
+                      GET STARTED
+                    </button>
+                  </div>
+                </div>
+
+                {/* Card 2 */}
+                <div className="bg-gray-900/60 backdrop-blur-sm border border-gray-700 p-6 rounded-2xl hover:border-red-500/50 transition-all group">
+                  <div className="text-center">
+                    <div className="w-16 h-16 flex items-center justify-center bg-gradient-to-br from-red-500 to-red-600 rounded-full mx-auto mb-6 border-2 border-red-400 group-hover:border-red-300 transition-all">
+                      <i className="ri-heart-line text-white text-2xl"></i>
+                    </div>
+                    <h4 className="text-xl font-bold text-white mb-6">Why are you stuck at your current rank?</h4>
+                    <button className="w-full bg-white text-black py-3 px-6 rounded-xl font-semibold hover:bg-gray-100 transition-colors">
+                      GET STARTED
+                    </button>
+                  </div>
+                </div>
+
+                {/* Card 3 */}
+                <div className="bg-gray-900/60 backdrop-blur-sm border border-gray-700 p-6 rounded-2xl hover:border-red-500/50 transition-all group">
+                  <div className="text-center">
+                    <div className="w-16 h-16 flex items-center justify-center bg-gradient-to-br from-red-500 to-red-600 rounded-full mx-auto mb-6 border-2 border-red-400 group-hover:border-red-300 transition-all">
+                      <i className="ri-heart-line text-white text-2xl"></i>
+                    </div>
+                    <h4 className="text-xl font-bold text-white mb-6">What should you do next?</h4>
+                    <button className="w-full bg-white text-black py-3 px-6 rounded-xl font-semibold hover:bg-gray-100 transition-colors">
+                      GET STARTED
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
