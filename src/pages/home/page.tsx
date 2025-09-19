@@ -502,7 +502,7 @@ export default function Home() {
                   <a href="https://www.reddit.com/r/ValorantRankup/" target="_blank" rel="noopener noreferrer" className="w-8 h-8 flex items-center justify-center bg-gradient-to-br from-gray-800 to-red-900/30 hover:from-red-600 hover:to-red-700 rounded-full transition-all cursor-pointer border border-red-500/30">
                     <i className="ri-reddit-line text-red-400 text-lg"></i>
                   </a>
-                  <a href="https://discord.com/invite/MmxAnSXS" target="_blank" rel="noopener noreferrer" className="w-8 h-8 flex items-center justify-center bg-gradient-to-br from-gray-800 to-blue-900/30 hover:from-blue-600 hover:to-blue-700 rounded-full transition-all cursor-pointer border border-blue-500/30">
+                  <a href="https://discord.gg/jRTf8PdA" target="_blank" rel="noopener noreferrer" className="w-8 h-8 flex items-center justify-center bg-gradient-to-br from-gray-800 to-blue-900/30 hover:from-blue-600 hover:to-blue-700 rounded-full transition-all cursor-pointer border border-blue-500/30">
                     <i className="ri-discord-line text-blue-400 text-lg"></i>
                   </a>
                 </div>
