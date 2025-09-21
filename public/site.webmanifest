@@ -1,0 +1,21 @@
+{
+  "name": "RankUp - AI VALORANT Performance Coach",
+  "short_name": "RankUp",
+  "description": "Take your VALORANT gameplay to the next level with AI-powered performance analysis and personalized coaching.",
+  "icons": [
+    {
+      "src": "/images/favicon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/favicon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#ef4444",
+  "background_color": "#000000",
+  "display": "standalone",
+  "start_url": "/"
+}
