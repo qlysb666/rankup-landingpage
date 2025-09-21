@@ -10,57 +10,61 @@ export default function Home() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     const form = e.target as HTMLFormElement;
     const formData = new FormData(form);
     
-    // 自定义验证
-    const emailValue = formData.get('email') as string;
-    if (!emailValue || !emailValue.includes('@')) {
+    const email = formData.get('email') as string;
+    const rank = formData.get('rank') as string;
+    const agent = formData.get('agent') as string;
+    const consent = formData.get('consent') === 'yes';
+
+    // 自定义英文验证
+    if (!email || !email.includes('@')) {
       alert('Please enter a valid email address.');
       return;
     }
-    
     if (!consent) {
-      alert('Please agree to the terms to continue.');
+      alert('You must agree to the terms to continue.');
       return;
     }
-    
-    const payload = {
-      email: emailValue,
-      rank: formData.get('rank'),
-      agent: formData.get('agent'),
-      consent: !!formData.get('consent'),
-      source: 'hero_form'
-    };
-
-    console.log('Submitting payload:', payload); // 调试日志
 
     try {
+      const payload = {
+        email: email.trim().toLowerCase(),
+        rank: rank || null,
+        agent: agent || null,
+        consent: consent,
+        source: 'hero_form'
+      };
+
+      console.log('Submitting payload:', payload);
+
       const response = await fetch('/api/join', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+        },
         body: JSON.stringify(payload)
       });
-      
-      console.log('Response status:', response.status); // 调试日志
+
       const data = await response.json();
-      console.log('Response data:', data); // 调试日志
-      
+      console.log('API response:', data);
+
       if (data.ok) {
         alert('Successfully joined the waitlist! 🎉 We\'ll be in touch soon.');
-        // 重置表单
+        form.reset();
+        // Reset state
         setEmail('');
         setCurrentRank('Gold');
         setMainAgent('');
         setConsent(false);
       } else {
         alert(`Failed to join: ${data.error || 'Please try again'}`);
-        console.error('API Error:', data.error);
       }
     } catch (error) {
-      console.error('Network error:', error);
-      alert('Network error. Please check your connection and try again.');
+      console.error('Form submission error:', error);
+      alert('Network error. Please try again.');
     }
   };
 
@@ -143,13 +147,13 @@ export default function Home() {
             </h1>
 
             <p className="text-lg text-gray-300 leading-relaxed max-w-3xl mx-auto">
-              Professional esports coaching powered by AI. Upload your match data and receive tactical insights that pro players use to climb the ranks.
+              Upload a scoreboard screenshot to get specific fixes and weekly goals—fast and repeatable.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-6">
               <a href="#join-waitlist" className="bg-gradient-to-r from-red-500 to-red-600 text-white px-8 py-4 rounded-full text-base font-medium hover:from-red-600 hover:to-red-700 transition-all text-center whitespace-nowrap inline-flex items-center justify-center gap-3 cursor-pointer shadow-lg shadow-red-500/50 border border-red-400/50">
                 <i className="ri-sword-line text-base"></i>
-                Enter the Arena
+                Get Started for Free
                 <i className="ri-arrow-right-line text-base"></i>
               </a>
               <a href="#features" className="bg-black/50 backdrop-blur-sm text-white px-8 py-4 rounded-full text-base font-medium hover:bg-black/70 transition-colors text-center whitespace-nowrap cursor-pointer border border-red-500/30">
@@ -174,52 +178,51 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="mt-16">
-            <div className="bg-gradient-to-r from-gray-900/80 to-red-900/20 backdrop-blur-sm border border-red-500/30 p-8 rounded-2xl shadow-2xl shadow-red-500/20 max-w-5xl mx-auto">
-              <div className="text-center mb-8">
-                <div className="inline-flex items-center justify-center w-12 h-12 bg-red-500 rounded-xl mb-4">
-                  <i className="ri-chat-3-line text-white text-xl"></i>
-                </div>
-                <h3 className="text-2xl font-bold text-white mb-2">Here's your pathway to ranking up!</h3>
-              </div>
-              
-              <div className="grid md:grid-cols-3 gap-6">
+          <div className="mt-20">
+            <div className="text-center mb-12">
+              <p className="text-xl text-white max-w-4xl mx-auto leading-relaxed whitespace-nowrap">
+                Using Rankup, you can Make these problems clear and Make the level up!
+              </p>
+            </div>
+
+            <div className="max-w-4xl mx-auto">
+              <div className="grid md:grid-cols-3 gap-8">
                 {/* Card 1 */}
-                <div className="bg-gray-900/60 backdrop-blur-sm border border-gray-700 p-6 rounded-2xl hover:border-red-500/50 transition-all group">
-                  <div className="text-center">
-                    <div className="w-16 h-16 flex items-center justify-center bg-gradient-to-br from-gray-700 to-gray-800 rounded-full mx-auto mb-6 border-2 border-gray-600 group-hover:border-red-500/50 transition-all">
-                      <i className="ri-question-line text-white text-2xl"></i>
+                <div className="group cursor-pointer">
+                  <div className="bg-gradient-to-br from-gray-900/50 to-gray-800/30 backdrop-blur-sm border border-gray-700/50 rounded-2xl p-8 hover:border-red-500/50 hover:shadow-lg hover:shadow-red-500/10 transition-all duration-300 h-full">
+                    <div className="text-center">
+                      <div className="w-16 h-16 bg-gradient-to-br from-red-500 to-red-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <i className="ri-trophy-line text-white text-2xl"></i>
+                      </div>
+                      <h4 className="text-xl font-bold text-white mb-4">What's your true rank?</h4>
+                      <p className="text-gray-400 leading-relaxed">Discover your true skill level and potential ranking with detailed performance metrics</p>
                     </div>
-                    <h4 className="text-xl font-bold text-white mb-6">What's your true rank?</h4>
-                    <button className="w-full bg-white text-black py-3 px-6 rounded-xl font-semibold hover:bg-gray-100 transition-colors">
-                      GET STARTED
-                    </button>
                   </div>
                 </div>
 
                 {/* Card 2 */}
-                <div className="bg-gray-900/60 backdrop-blur-sm border border-gray-700 p-6 rounded-2xl hover:border-red-500/50 transition-all group">
-                  <div className="text-center">
-                    <div className="w-16 h-16 flex items-center justify-center bg-gradient-to-br from-red-500 to-red-600 rounded-full mx-auto mb-6 border-2 border-red-400 group-hover:border-red-300 transition-all">
-                      <i className="ri-heart-line text-white text-2xl"></i>
+                <div className="group cursor-pointer">
+                  <div className="bg-gradient-to-br from-gray-900/50 to-gray-800/30 backdrop-blur-sm border border-gray-700/50 rounded-2xl p-8 hover:border-blue-500/50 hover:shadow-lg hover:shadow-blue-500/10 transition-all duration-300 h-full">
+                    <div className="text-center">
+                      <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <i className="ri-question-line text-white text-2xl"></i>
+                      </div>
+                      <h4 className="text-xl font-bold text-white mb-4">Why are you stuck at your current rank?</h4>
+                      <p className="text-gray-400 leading-relaxed">Identify critical gameplay flaws preventing you from climbing to higher ranks</p>
                     </div>
-                    <h4 className="text-xl font-bold text-white mb-6">Why are you stuck at your current rank?</h4>
-                    <button className="w-full bg-white text-black py-3 px-6 rounded-xl font-semibold hover:bg-gray-100 transition-colors">
-                      GET STARTED
-                    </button>
                   </div>
                 </div>
 
                 {/* Card 3 */}
-                <div className="bg-gray-900/60 backdrop-blur-sm border border-gray-700 p-6 rounded-2xl hover:border-red-500/50 transition-all group">
-                  <div className="text-center">
-                    <div className="w-16 h-16 flex items-center justify-center bg-gradient-to-br from-red-500 to-red-600 rounded-full mx-auto mb-6 border-2 border-red-400 group-hover:border-red-300 transition-all">
-                      <i className="ri-heart-line text-white text-2xl"></i>
+                <div className="group cursor-pointer">
+                  <div className="bg-gradient-to-br from-gray-900/50 to-gray-800/30 backdrop-blur-sm border border-gray-700/50 rounded-2xl p-8 hover:border-purple-500/50 hover:shadow-lg hover:shadow-purple-500/10 transition-all duration-300 h-full">
+                    <div className="text-center">
+                      <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <i className="ri-flag-line text-white text-2xl"></i>
+                      </div>
+                      <h4 className="text-xl font-bold text-white mb-4">What should you do next?</h4>
+                      <p className="text-gray-400 leading-relaxed">Get personalized training recommendations to improve your gameplay systematically</p>
                     </div>
-                    <h4 className="text-xl font-bold text-white mb-6">What should you do next?</h4>
-                    <button className="w-full bg-white text-black py-3 px-6 rounded-xl font-semibold hover:bg-gray-100 transition-colors">
-                      GET STARTED
-                    </button>
                   </div>
                 </div>
               </div>
@@ -248,32 +251,32 @@ export default function Home() {
               <div className="w-12 h-12 flex items-center justify-center bg-gradient-to-br from-red-500/30 to-red-600/30 rounded-xl mb-4 border border-red-500/40">
                 <i className="ri-search-eye-line text-red-400 text-lg"></i>
               </div>
-              <h3 className="text-lg font-semibold mb-3 text-red-300">Pro-Level Diagnosis</h3>
-              <p className="text-gray-400 text-sm leading-relaxed">Advanced tactical analysis using the same methods professional esports teams employ for match preparation.</p>
+              <h3 className="text-lg font-semibold mb-3 text-red-300">Professional Diagnosis</h3>
+              <p className="text-gray-400 text-sm leading-relaxed">Quickly identify the exact reasons holding back your rank progression with AI-powered analysis.</p>
             </div>
 
             <div className="bg-gradient-to-br from-gray-900/80 to-blue-900/20 backdrop-blur-sm border border-blue-500/30 p-6 rounded-2xl hover:border-blue-500/50 transition-all">
               <div className="w-12 h-12 flex items-center justify-center bg-gradient-to-br from-blue-500/30 to-blue-600/30 rounded-xl mb-4 border border-blue-500/40">
                 <i className="ri-lightbulb-line text-blue-400 text-lg"></i>
               </div>
-              <h3 className="text-lg font-semibold mb-3 text-blue-300">Tactical Mastery</h3>
-              <p className="text-gray-400 text-sm leading-relaxed">Strategic insights and positioning improvements that separate amateur players from professionals.</p>
+              <h3 className="text-lg font-semibold mb-3 text-blue-300">Actionable Advice</h3>
+              <p className="text-gray-400 text-sm leading-relaxed">Get practical, personalized recommendations you can implement in your very next match.</p>
             </div>
 
             <div className="bg-gradient-to-br from-gray-900/80 to-purple-900/20 backdrop-blur-sm border border-purple-500/30 p-6 rounded-2xl hover:border-purple-500/50 transition-all">
               <div className="w-12 h-12 flex items-center justify-center bg-gradient-to-br from-purple-500/30 to-purple-600/30 rounded-xl mb-4 border border-purple-500/40">
                 <i className="ri-timer-flash-line text-purple-400 text-lg"></i>
               </div>
-              <h3 className="text-lg font-semibold mb-3 text-purple-300">Lightning Speed</h3>
-              <p className="text-gray-400 text-sm leading-relaxed">Get comprehensive match analysis faster than a Jett dash - perfect for competitive players.</p>
+              <h3 className="text-lg font-semibold mb-3 text-purple-300">20s Analysis</h3>
+              <p className="text-gray-400 text-sm leading-relaxed">Receive comprehensive performance insights in just 20 seconds - faster than a round reset.</p>
             </div>
 
             <div className="bg-gradient-to-br from-gray-900/80 to-cyan-900/20 backdrop-blur-sm border border-cyan-500/30 p-6 rounded-2xl hover:border-cyan-500/50 transition-all">
               <div className="w-12 h-12 flex items-center justify-center bg-gradient-to-br from-cyan-500/30 to-cyan-600/30 rounded-xl mb-4 border border-cyan-500/40">
                 <i className="ri-money-dollar-circle-line text-cyan-400 text-lg"></i>
               </div>
-              <h3 className="text-lg font-semibold mb-3 text-cyan-300">Tournament Ready</h3>
-              <p className="text-gray-400 text-sm leading-relaxed">Professional coaching at a fraction of the cost of hiring a dedicated esports coach.</p>
+              <h3 className="text-lg font-semibold mb-3 text-cyan-300">Cost-Effective</h3>
+              <p className="text-gray-400 text-sm leading-relaxed">Access professional-level coaching without the high costs of personal trainers.</p>
             </div>
           </div>
         </div>
@@ -301,7 +304,7 @@ export default function Home() {
             </h2>
             <div className="max-w-5xl mx-auto">
               <img
-                src="https://readdy.ai/api/search-image?query=detailed%20VALORANT%20esports%20performance%20analysis%20interface%20showing%20comprehensive%20statistics%20with%20gaming%20aesthetics%2C%20tactical%20breakdown%20with%20neon%20highlights%2C%20professional%20gaming%20analytics%20dashboard%20with%20red%20and%20blue%20accent%20colors%2C%20competitive%20gaming%20metrics%20display&width=1200&height=500&seq=featuresgaming001&orientation=landscape"
+                src="/images/features-bg.png"
                 alt="Complete Tactical Analysis Interface"
                 className="rounded-2xl w-full object-cover shadow-2xl border border-red-500/20"
               />
@@ -312,59 +315,59 @@ export default function Home() {
               <div className="w-12 h-12 flex items-center justify-center bg-gradient-to-br from-red-500/30 to-red-600/30 rounded-xl mb-4 border border-red-500/40 group-hover:scale-110 transition-transform">
                 <i className="ri-bar-chart-line text-red-400 text-lg"></i>
               </div>
-              <h3 className="text-lg font-semibold mb-3 text-red-300">Combat Analysis</h3>
-              <p className="text-gray-400 text-sm leading-relaxed">Deep dive into your fragging performance with professional-grade statistical breakdown.</p>
+              <h3 className="text-lg font-semibold mb-3 text-red-300">Performance Summary</h3>
+              <p className="text-gray-400 text-sm leading-relaxed">One-line overview of your match performance with key metrics highlighted for quick understanding.</p>
             </div>
 
             <div className="bg-gradient-to-br from-gray-900/80 to-blue-900/20 backdrop-blur-sm border border-blue-500/30 p-6 rounded-2xl hover:border-blue-500/50 transition-all group">
               <div className="w-12 h-12 flex items-center justify-center bg-gradient-to-br from-blue-500/30 to-blue-600/30 rounded-xl mb-4 border border-blue-500/40 group-hover:scale-110 transition-transform">
                 <i className="ri-star-line text-blue-400 text-lg"></i>
               </div>
-              <h3 className="text-lg font-semibold mb-3 text-blue-300">MVP Moments</h3>
-              <p className="text-gray-400 text-sm leading-relaxed">Highlight your clutch plays and game-changing moments that define elite gameplay.</p>
+              <h3 className="text-lg font-semibold mb-3 text-blue-300">Key Highlights</h3>
+              <p className="text-gray-400 text-sm leading-relaxed">Standout moments and strengths identified from your gameplay to build upon in future matches.</p>
             </div>
 
             <div className="bg-gradient-to-br from-gray-900/80 to-purple-900/20 backdrop-blur-sm border border-purple-500/30 p-6 rounded-2xl hover:border-purple-500/50 transition-all group">
               <div className="w-12 h-12 flex items-center justify-center bg-gradient-to-br from-purple-500/30 to-purple-600/30 rounded-xl mb-4 border border-purple-500/40 group-hover:scale-110 transition-transform">
                 <i className="ri-search-line text-purple-400 text-lg"></i>
               </div>
-              <h3 className="text-lg font-semibold mb-3 text-purple-300">Weakness Exposure</h3>
-              <p className="text-gray-400 text-sm leading-relaxed">Identify critical gameplay flaws that prevent you from reaching the next competitive tier.</p>
+              <h3 className="text-lg font-semibold mb-3 text-purple-300">Root Cause Analysis</h3>
+              <p className="text-gray-400 text-sm leading-relaxed">Biggest problem identified with detailed analysis of underlying causes affecting your performance.</p>
             </div>
 
             <div className="bg-gradient-to-br from-gray-900/80 to-cyan-900/20 backdrop-blur-sm border border-cyan-500/30 p-6 rounded-2xl hover:border-cyan-500/50 transition-all group">
               <div className="w-12 h-12 flex items-center justify-center bg-gradient-to-br from-cyan-500/30 to-cyan-600/30 rounded-xl mb-4 border border-cyan-500/40 group-hover:scale-110 transition-transform">
-                <i className="ri-target-line text-cyan-400 text-lg"></i>
+                <i className="ri-flag-line text-cyan-400 text-lg"></i>
               </div>
-              <h3 className="text-lg font-semibold mb-3 text-cyan-300">Training Protocol</h3>
-              <p className="text-gray-400 text-sm leading-relaxed">Structured improvement plan designed like professional esports training regimens.</p>
+              <h3 className="text-lg font-semibold mb-3 text-cyan-300">Action Plan</h3>
+              <p className="text-gray-400 text-sm leading-relaxed">Specific fixes and weekly goals tailored to your role, map, and agent for measurable improvement.</p>
             </div>
           </div>
           <div className="mt-12 bg-gradient-to-br from-gray-900/60 to-red-900/20 backdrop-blur-sm border border-red-500/30 rounded-2xl p-8 max-w-5xl mx-auto">
             <div className="grid md:grid-cols-2 gap-8 items-center">
               <div>
                 <h3 className="text-2xl font-bold mb-4">
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-400">Championship</span> Mindset
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-400">Rapid Rank Improvement</span>
                 </h3>
-                <p className="text-gray-400 mb-6 text-base leading-relaxed">Transform from casual player to competitive warrior. Our analysis reveals the mental game and tactical decision-making that separates champions from the crowd.</p>
+                <p className="text-gray-400 mb-6 text-base leading-relaxed">Our users typically see significant rank improvements within weeks, not months. The key is our targeted approach to identifying and fixing crucial gameplay elements.</p>
                 <ul className="space-y-3">
                   <li className="flex items-center gap-3">
-                    <i className="ri-trophy-line text-red-500 text-lg"></i>
-                    <span className="text-gray-300 text-base">Tournament-level strategic thinking</span>
+                    <i className="ri-check-line text-red-500 text-lg"></i>
+                    <span className="text-gray-300 text-base">Average 2-3 rank increase in 30 days</span>
                   </li>
                   <li className="flex items-center gap-3">
-                    <i className="ri-crosshair-line text-blue-500 text-lg"></i>
-                    <span className="text-gray-300 text-base">Precision aim training protocols</span>
+                    <i className="ri-check-line text-red-500 text-lg"></i>
+                    <span className="text-gray-300 text-base">Personalized improvement roadmap</span>
                   </li>
                   <li className="flex items-center gap-3">
-                    <i className="ri-team-line text-purple-500 text-lg"></i>
-                    <span className="text-gray-300 text-base">Team coordination mastery</span>
+                    <i className="ri-check-line text-red-500 text-lg"></i>
+                    <span className="text-gray-300 text-base">Weekly progress tracking</span>
                   </li>
                 </ul>
               </div>
               <div className="relative">
                 <img
-                  src="https://readdy.ai/api/search-image?query=VALORANT%20championship%20trophy%20and%20rank%20progression%20visualization%20with%20esports%20tournament%20atmosphere%2C%20professional%20gaming%20achievement%20display%20with%20neon%20lighting%20effects%2C%20competitive%20gaming%20success%20metrics%20with%20red%20and%20gold%20accents&width=600&height=400&seq=championshiprank001&orientation=landscape"
+                  src="/images/success-bg.png"
                   alt="Championship Achievement"
                   className="rounded-xl w-full object-cover border border-red-500/30"
                 />
@@ -383,7 +386,7 @@ export default function Home() {
             </h2>
             <div className="max-w-4xl mx-auto">
               <img
-                src="https://readdy.ai/api/search-image?query=step-by-step%20esports%20training%20process%20with%20gaming%20aesthetics%2C%20VALORANT%20improvement%20workflow%20with%20neon%20highlights%2C%20professional%20gaming%20development%20journey%20with%20tactical%20elements%2C%20dark%20futuristic%20interface%20with%20red%20and%20blue%20accent%20colors&width=1200&height=400&seq=howitworksesports001&orientation=landscape"
+                src="/images/how it works.png"
                 alt="Professional Gaming Development Process"
                 className="rounded-2xl w-full object-cover shadow-2xl border border-red-500/20"
               />
@@ -394,24 +397,24 @@ export default function Home() {
               <div className="w-16 h-16 flex items-center justify-center bg-gradient-to-br from-red-500 to-red-600 rounded-full mx-auto mb-6 border-2 border-red-400/50 group-hover:scale-110 transition-transform shadow-lg shadow-red-500/50">
                 <i className="ri-upload-cloud-line text-white text-xl"></i>
               </div>
-              <h3 className="text-xl font-bold mb-4 text-red-300">1. Deploy Intel</h3>
-              <p className="text-gray-400 text-base leading-relaxed">Upload your match screenshots to our secure tactical analysis system for professional review.</p>
+              <h3 className="text-xl font-bold mb-4 text-red-300">1. Upload</h3>
+              <p className="text-gray-400 text-base leading-relaxed">Drop your VALORANT scoreboard or Tracker.gg screenshot into our secure analysis system.</p>
             </div>
 
             <div className="text-center group">
               <div className="w-16 h-16 flex items-center justify-center bg-gradient-to-br from-blue-500 to-blue-600 rounded-full mx-auto mb-6 border-2 border-blue-400/50 group-hover:scale-110 transition-transform shadow-lg shadow-blue-500/50">
                 <i className="ri-cpu-line text-white text-xl"></i>
               </div>
-              <h3 className="text-xl font-bold mb-4 text-blue-300">2. AI Processing</h3>
-              <p className="text-gray-400 text-base leading-relaxed">Advanced algorithms analyze your gameplay patterns, tactical decisions, and competitive positioning.</p>
+              <h3 className="text-xl font-bold mb-4 text-blue-300">2. Analyze</h3>
+              <p className="text-gray-400 text-base leading-relaxed">AI parses your stats, map context, agent performance, and team dynamics for comprehensive insights.</p>
             </div>
 
             <div className="text-center group">
               <div className="w-16 h-16 flex items-center justify-center bg-gradient-to-br from-purple-500 to-purple-600 rounded-full mx-auto mb-6 border-2 border-purple-400/50 group-hover:scale-110 transition-transform shadow-lg shadow-purple-500/50">
                 <i className="ri-medal-line text-white text-xl"></i>
               </div>
-              <h3 className="text-xl font-bold mb-4 text-purple-300">3. Dominate</h3>
-              <p className="text-gray-400 text-base leading-relaxed">Execute your personalized training protocol and watch your rank climb with precision improvements.</p>
+              <h3 className="text-xl font-bold mb-4 text-purple-300">3. Improve</h3>
+              <p className="text-gray-400 text-base leading-relaxed">Receive actionable fixes and structured weekly goals to systematically rank up your gameplay.</p>
             </div>
           </div>
         </div>
@@ -431,7 +434,6 @@ export default function Home() {
               <input
                 name="email"
                 type="email"
-                placeholder="Email Address *"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-xl text-white text-base focus:border-red-500 focus:outline-none"
@@ -446,6 +448,7 @@ export default function Home() {
                 onChange={(e) => setCurrentRank(e.target.value)}
                 className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-xl text-white text-base focus:border-red-500 focus:outline-none pr-8"
               >
+                <option value="">Select your rank</option>
                 <option value="Iron">Iron</option>
                 <option value="Bronze">Bronze</option>
                 <option value="Gold">Gold</option>
@@ -472,11 +475,11 @@ export default function Home() {
               <input
                 name="consent"
                 type="checkbox"
-                id="consent"
                 value="yes"
+                id="consent"
                 checked={consent}
                 onChange={(e) => setConsent(e.target.checked)}
-                className="mt-1 w-4 h-4 text-red-500 bg-gray-900 border border-gray-700 rounded focus:ring-red-500"
+                className="mt-1 w-4 h-4 text-red-500 bg-gray-900 border-gray-700 rounded focus:ring-red-500"
               />
               <label htmlFor="consent" className="text-gray-400 text-base leading-relaxed">
                 I agree to receive updates about RankUp and understand that my email will be used solely for waitlist communications.
@@ -556,9 +559,8 @@ export default function Home() {
               <div className="space-y-3">
                 <h3 className="text-base font-semibold text-red-300">Legal</h3>
                 <div className="flex flex-col space-y-2">
-                  <a href="#" className="text-gray-400 hover:text-red-400 transition-colors cursor-pointer text-sm">Terms of Use</a>
-                  <a href="#" className="text-gray-400 hover:text-red-400 transition-colors cursor-pointer text-sm">Privacy Policy</a>
-                  <a href="https://readdy.ai/?origin=logo" className="text-gray-400 hover:text-red-400 transition-colors cursor-pointer text-sm">Made with Readdy</a>
+                  <a href="https://www.notion.so/Terms-of-Service-268e276b235a80f4a850e272dcce04be" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-red-400 transition-colors cursor-pointer text-sm">Terms of Use</a>
+                  <a href="https://www.notion.so/Privacy-Policy-268e276b235a80fa92aaf163abd870ee" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-red-400 transition-colors cursor-pointer text-sm">Privacy Policy</a>
                 </div>
               </div>
             </div>
