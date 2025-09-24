@@ -92,7 +92,7 @@ export default function Home() {
       </header>
 
       {/* Hero Section */}
-      <section className="min-h-screen flex flex-col items-center justify-center relative py-32 bg-black overflow-hidden">
+      <section className="min-h-screen flex flex-col items-center justify-center relative py-20 sm:py-24 lg:py-32 bg-black overflow-hidden">
         {/* Animated Background Elements */}
         <div className="absolute inset-0 z-0">
           <div className="absolute top-20 left-10 w-32 h-32 bg-red-500/10 rounded-full blur-xl animate-pulse"></div>
@@ -135,34 +135,34 @@ export default function Home() {
           </div>
         </div>
         
-        <div className="max-w-7xl mx-auto px-8 text-center relative z-10">
-          <div className="space-y-6">
-            <div className="inline-flex items-center px-5 py-2.5 bg-gradient-to-r from-red-500/20 to-purple-500/20 backdrop-blur-sm border border-red-500/30 rounded-full">
-              <i className="ri-trophy-line text-red-400 mr-2"></i>
-              <span className="text-sm text-red-400 tracking-tight font-medium">Elite VALORANT Training Platform</span>
+        <div className="max-w-7xl mx-auto px-6 sm:px-6 lg:px-8 text-center relative z-10">
+          <div className="space-y-12 sm:space-y-6">
+            <div className="inline-flex items-center px-5 sm:px-5 py-3 sm:py-2.5 bg-gradient-to-r from-red-500/20 to-purple-500/20 backdrop-blur-sm border border-red-500/30 rounded-full mt-8">
+              <i className="ri-trophy-line text-red-400 mr-2 text-sm sm:text-base"></i>
+              <span className="text-sm sm:text-sm text-red-400 tracking-tight font-medium">Elite VALORANT Training Platform</span>
             </div>
 
-            <h1 className="text-5xl lg:text-6xl xl:text-7xl tracking-tight leading-tight font-bold max-w-5xl mx-auto">
+            <h1 className="text-4xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl tracking-tight leading-tight font-bold max-w-5xl mx-auto">
               Upload, know and <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-400">Rank Up</span>
             </h1>
 
-            <p className="text-lg text-gray-300 leading-relaxed max-w-3xl mx-auto">
+            <p className="text-lg sm:text-lg text-gray-300 leading-relaxed max-w-3xl mx-auto">
               Upload a scoreboard screenshot to get specific fixes and weekly goals—fast and repeatable.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-6">
-              <a href="#join-waitlist" className="bg-gradient-to-r from-red-500 to-red-600 text-white px-8 py-4 rounded-full text-base font-medium hover:from-red-600 hover:to-red-700 transition-all text-center whitespace-nowrap inline-flex items-center justify-center gap-3 cursor-pointer shadow-lg shadow-red-500/50 border border-red-400/50">
-                <i className="ri-sword-line text-base"></i>
-                Get Started for Free
-                <i className="ri-arrow-right-line text-base"></i>
+            <div className="flex flex-col sm:flex-row gap-6 justify-center pt-8">
+              <a href="#join-waitlist" className="bg-gradient-to-r from-red-500 to-red-600 text-white px-8 sm:px-8 py-4 sm:py-4 rounded-full text-base sm:text-base font-medium hover:from-red-600 hover:to-red-700 transition-all text-center inline-flex items-center justify-center gap-3 sm:gap-3 cursor-pointer shadow-lg shadow-red-500/50 border border-red-400/50">
+                <i className="ri-sword-line text-base sm:text-base"></i>
+                <span>Get Started for Free</span>
+                <i className="ri-arrow-right-line text-base sm:text-base"></i>
               </a>
-              <a href="#features" className="bg-black/50 backdrop-blur-sm text-white px-8 py-4 rounded-full text-base font-medium hover:bg-black/70 transition-colors text-center whitespace-nowrap cursor-pointer border border-red-500/30">
-                <i className="ri-focus-3-line mr-2"></i>
-                View Features
+              <a href="#features" className="bg-black/50 backdrop-blur-sm text-white px-8 sm:px-8 py-4 sm:py-4 rounded-full text-base sm:text-base font-medium hover:bg-black/70 transition-colors text-center inline-flex items-center justify-center cursor-pointer border border-red-500/30">
+                <i className="ri-focus-3-line mr-2 text-base sm:text-base"></i>
+                <span>View Features</span>
               </a>
             </div>
 
-            <div className="flex items-center justify-center gap-8 pt-4">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-8 pt-8">
               <div className="flex items-center gap-2 text-sm text-gray-400">
                 <i className="ri-shield-check-line text-red-400"></i>
                 <span>Pro-Level Analysis</span>
@@ -178,9 +178,9 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="mt-20">
-            <div className="text-center mb-12">
-              <p className="text-xl text-white max-w-4xl mx-auto leading-relaxed whitespace-nowrap">
+          <div className="mt-24">
+            <div className="text-center mb-16">
+              <p className="text-lg sm:text-xl text-white max-w-4xl mx-auto leading-relaxed">
                 Using Rankup, you can Make these problems clear and Make the level up!
               </p>
             </div>
