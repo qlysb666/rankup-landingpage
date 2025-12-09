@@ -25,10 +25,10 @@ export default function Footer() {
               RankUp – Let AI become your personal rank-up coach. Upload your Valorant stats and get instant AI analysis to improve your gameplay.
             </p>
             <div className="flex space-x-4">
-              <a href="https://x.com/Justin_kubrick" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-gray-700 transition-colors cursor-pointer">
-                <i className="ri-twitter-fill"></i>
+              <a href="https://www.tiktok.com/@rankup_offical" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-gray-700 transition-colors cursor-pointer">
+                <i className="ri-tiktok-fill"></i>
               </a>
-              <a href="#" className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-gray-700 transition-colors cursor-pointer">
+              <a href="https://discord.com/invite/BdnrDQZJ" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-gray-700 transition-colors cursor-pointer">
                 <i className="ri-discord-fill"></i>
               </a>
             </div>
