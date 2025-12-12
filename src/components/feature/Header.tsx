@@ -33,6 +33,9 @@ export default function Header() {
             <a href="#how-it-works" className="text-gray-700 hover:text-red-600 transition-colors">
               How It Works
             </a>
+            <a href="#demo" className="text-gray-700 hover:text-red-600 transition-colors">
+              Demo
+            </a>
             <a href="#testimonials" className="text-gray-700 hover:text-red-600 transition-colors">
               Testimonials
             </a>
@@ -66,6 +69,9 @@ export default function Header() {
             <div className="flex flex-col space-y-4">
               <button onClick={() => scrollToSection('how-it-works')} className="text-left text-gray-600 hover:text-red-600 transition-colors cursor-pointer font-medium">
                 How It Works
+              </button>
+              <button onClick={() => scrollToSection('demo')} className="text-left text-gray-600 hover:text-red-600 transition-colors cursor-pointer font-medium">
+                Demo
               </button>
               <button onClick={() => scrollToSection('features')} className="text-left text-gray-600 hover:text-red-600 transition-colors cursor-pointer font-medium">
                 Features

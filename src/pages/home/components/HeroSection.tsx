@@ -12,7 +12,7 @@ export default function HeroSection() {
   return (
     <section className="relative min-h-screen flex items-center justify-center bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 lg:px-8 w-full relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
           <div className="text-left">
             <h1 className="text-5xl lg:text-7xl font-bold text-black mb-8 leading-tight">
               Your Valorant 
@@ -55,11 +55,11 @@ export default function HeroSection() {
           </div>
           
           <div className="relative">
-            <div className="bg-gray-50 rounded-3xl p-6 shadow-xl border border-gray-200 transform scale-110 max-w-lg mx-auto">
+            <div className="bg-gray-50 rounded-3xl p-8 shadow-xl border border-gray-200 transform scale-125 max-w-5xl mx-auto">
               <img 
-                src="https://static.readdy.ai/image/8adaa65a86ae7a03e22c824bd9473770/e668ab213ef8b6534b01d6fdadd663dd.png"
+                src="/hero页用图.png"
                 alt="AI Analysis Report Preview"
-                className="w-full h-80 rounded-2xl shadow-lg object-cover"
+                className="w-full rounded-2xl shadow-lg object-contain"
               />
               <div className="mt-6 text-center">
                 <p className="text-base text-gray-600 font-medium">Your AI-Generated Report</p>

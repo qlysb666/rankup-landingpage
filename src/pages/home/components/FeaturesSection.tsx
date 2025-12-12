@@ -52,11 +52,11 @@ export default function FeaturesSection() {
             </div>
           </div>
           <div className="relative">
-            <div className="bg-gray-50 rounded-3xl p-8 border border-gray-100">
+            <div className="bg-gray-50 rounded-3xl p-10 border border-gray-100 max-w-5xl mx-auto">
               <img
-                src="https://static.readdy.ai/image/8adaa65a86ae7a03e22c824bd9473770/98d564e5e5adc89ce4974fcdf4e8e6fb.png"
+                src="/报告展示图.png"
                 alt="AI Analysis Dashboard"
-                className="w-full rounded-2xl shadow-lg object-cover"
+                className="w-full rounded-2xl shadow-lg object-contain"
               />
             </div>
           </div>

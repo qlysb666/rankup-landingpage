@@ -62,20 +62,18 @@ export default function HowItWorksSection() {
           ))}
         </div>
 
-        {/* CTA Section */}
-        <div className="bg-white rounded-2xl p-12 text-center shadow-lg max-w-4xl mx-auto">
-          <h3 className="text-3xl font-bold text-black mb-4">
-            Ready to Rank Up?
-          </h3>
-          <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-            Join thousands of players who have already improved their gameplay with our AI-powered analysis platform.
-          </p>
-          <button
-            onClick={() => scrollToSection('booking')}
-            className="bg-red-600 text-white px-8 py-4 rounded-full font-semibold hover:bg-red-700 transition-colors cursor-pointer whitespace-nowrap"
-          >
-            Get Started Now
-          </button>
+        {/* DEMO Video Section */}
+        <div id="demo" className="bg-white rounded-2xl p-10 text-center shadow-lg max-w-5xl mx-auto">
+          <h3 className="text-3xl font-bold text-black mb-6">DEMO</h3>
+          <div className="rounded-xl overflow-hidden shadow-md bg-black">
+            <video 
+              src="/DEMO.mp4" 
+              poster="/视频封面.png"
+              controls 
+              className="w-full h-full"
+              playsInline
+            />
+          </div>
         </div>
       </div>
     </section>
